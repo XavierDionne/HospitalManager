@@ -1,3 +1,6 @@
+/*
+    Copyright 2021, Xavier Dionne, All rights reserved.
+ */
 package com.wolfd.HospitalManager.Patients;
 
 import org.springframework.boot.CommandLineRunner;

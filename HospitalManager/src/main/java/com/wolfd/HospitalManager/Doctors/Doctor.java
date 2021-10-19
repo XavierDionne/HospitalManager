@@ -1,7 +1,9 @@
+/*
+    Copyright 2021, Xavier Dionne, All rights reserved.
+ */
 package com.wolfd.HospitalManager.Doctors;
 
 import javax.persistence.*;
-import javax.print.Doc;
 
 @Entity
 @Table
