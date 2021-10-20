@@ -3,7 +3,12 @@
  */
 package com.wolfd.HospitalManager.Patients;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table
@@ -106,8 +111,8 @@ public class Patient {
     }
 
 
+    @Override
     public String toString(){
         return String.format("Patient[patient ID:%d, health card:'%d', firstName:'%s', lastName:'%s', phone:%d, address:'%s']\n", patientId, healthCard, firstName, lastName, phone, address );
     }
 }
-

@@ -3,13 +3,14 @@
  */
 package com.wolfd.HospitalManager.Doctors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class DoctorService {
@@ -67,4 +68,3 @@ public class DoctorService {
         }
     }
 }
-
