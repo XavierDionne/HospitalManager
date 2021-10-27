@@ -3,12 +3,12 @@
  */
 package com.wolfd.HospitalManager.Patients;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import com.wolfd.HospitalManager.Appointments.Appointment;
+import com.wolfd.HospitalManager.Doctors.Doctor;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -33,7 +33,11 @@ public class Patient {
     private Long phone;
     private String address;
 
+    @ManyToOne
+    private Doctor familyDoctor;
 
+    @OneToMany
+    private List<Appointment> appointments = new ArrayList<>();
 
     /*
     Constructors
@@ -69,11 +73,6 @@ public class Patient {
         this.address = address;
     }
 
-
-    public long getHealthCard() {
-        return patientId;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -82,32 +81,12 @@ public class Patient {
         return lastName;
     }
 
-    public long getPhone() {
-        return phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setHealthCard(Integer healthCard) {
-        this.patientId = healthCard;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public void setPhone(long phone) {
-        this.phone = phone;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
 

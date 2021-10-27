@@ -1,9 +1,9 @@
 ####
-PUT http://localhost:8080/api/v1/patient/1?patientId=23232
+PUT http://localhost:8080/api/v1/patient/1?healthCard=9999
 Content-Type: application/json
 
 ####
-DELETE http://localhost:8080/api/v1/patient/2
+DELETE http://localhost:8080/api/v1/patient/5
 Content-Type: application/json
 
 ####
@@ -13,5 +13,11 @@ Content-Type: application/json
 {
   "heathCard": 11,
   "firstName": "Bret",
-  "lastName": "Magic"
+  "lastName": "Lil",
+  "address": "1226 ThisStreetBeReal",
+  "phone": 10822678
 }
+
+####
+PUT http://localhost:8080/api/v1/appointment/1?room=9999
+Content-Type: application/json

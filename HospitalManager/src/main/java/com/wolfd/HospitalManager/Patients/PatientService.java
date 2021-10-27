@@ -40,7 +40,7 @@ public class PatientService {
         boolean exists = patientRepository.existsById(patientId);
         if (!exists){
             throw new IllegalStateException(
-                    "student with id " + patientId + " does not exists");
+                    "patient with id " + patientId + " does not exists");
         }
         patientRepository.deleteById(patientId);
     }

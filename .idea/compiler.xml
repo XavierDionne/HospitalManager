@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="HospitalManager" target="16" />
+      <module name="HospitalManager" target="15" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
