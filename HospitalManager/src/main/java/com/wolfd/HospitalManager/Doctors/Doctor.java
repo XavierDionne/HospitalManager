@@ -10,8 +10,17 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Table
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Doctor {
 
     /*
@@ -45,43 +54,16 @@ public class Doctor {
     Constructors
      */
 
-    public Doctor(){}
-
-    public Doctor(Integer empId, String firstName, String lastName){
+    public Doctor(final Integer empId, final String firstName, final String lastName) {
         this.empId = empId;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Doctor(Integer empId, String firstName, String lastName, long phone){
+    public Doctor(final Integer empId, final String firstName, final String lastName, final long phone) {
         this.empId = empId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-    }
-
-    /*
-    Methods
-     */
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String toString() {
-        return "Doctor["+"doctorId:"+doctorId+", employee Id:'"+empId+", firstName:'"+firstName+", lastName:'"+lastName +", phone:"+phone+']';
     }
 }
