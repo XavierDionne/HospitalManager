@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(path = "api/v1/patient")
+@RequestMapping( "/api/v1/patient")
 public class PatientController {
 
     private final PatientService patientService;
@@ -26,8 +28,8 @@ public class PatientController {
     }
 
     @GetMapping
-    public String getPatients(){
-        return patientService.getPatients().toString();
+    public List<Patient> getPatients(){
+        return patientService.getPatients();
     }
 
     @PostMapping
@@ -41,9 +43,9 @@ public class PatientController {
     }
 
     @PutMapping(path = "{patientId}")
-    public void updatePatient(@PathVariable("patientId") Integer healthCard,
+    public void updatePatient(@PathVariable("patientId") Integer patientId,
                               @RequestParam(required = false) String firstName,
                               @RequestParam(required = false) String lastName){
-        patientService.updatePatient(healthCard, firstName, lastName);
+        patientService.updatePatient(patientId, firstName, lastName);
     }
 }

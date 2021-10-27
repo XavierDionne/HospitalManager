@@ -3,18 +3,21 @@
  */
 package com.wolfd.HospitalManager.Doctors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import com.wolfd.HospitalManager.Appointments.Appointment;
+import com.wolfd.HospitalManager.Patients.Patient;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
 public class Doctor {
 
-    //Attributes
+    /*
+    Attributes
+     */
+
     @Id
     @SequenceGenerator(
             name = "doctor_sequence",
@@ -32,6 +35,11 @@ public class Doctor {
     private String lastName;
     private long phone;
 
+    @OneToMany
+    private List<Patient> patients = new ArrayList<>();
+
+    @OneToMany
+    private List<Appointment> appointments = new ArrayList<>();
 
     /*
     Constructors
@@ -53,16 +61,8 @@ public class Doctor {
     }
 
     /*
-    Setters and getters
+    Methods
      */
-
-    public Integer getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(Integer doctorId) {
-        this.doctorId = doctorId;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -80,22 +80,8 @@ public class Doctor {
         this.lastName = lastName;
     }
 
-    public long getPhone() {
-        return phone;
-    }
-
-    public void setPhone(long phone) {
-        this.phone = phone;
-    }
-
     @Override
     public String toString() {
-        return "Doctor{" +
-                "doctorId=" + doctorId +
-                ", employee Id='"+ empId + '\''+
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone=" + phone +
-                '}';
+        return "Doctor["+"doctorId:"+doctorId+", employee Id:'"+empId+", firstName:'"+firstName+", lastName:'"+lastName +", phone:"+phone+']';
     }
 }
