@@ -3,12 +3,19 @@
  */
 package com.wolfd.HospitalManager.Doctors;
 
-import com.wolfd.HospitalManager.Appointments.Appointment;
-import com.wolfd.HospitalManager.Patients.Patient;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.wolfd.HospitalManager.Appointments.Appointment;
+import com.wolfd.HospitalManager.Patients.Patient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,12 +28,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Doctor {
-
-    /*
-    Attributes
-     */
-
+public class Doctor
+{
     @Id
     @SequenceGenerator(
             name = "doctor_sequence",
@@ -37,33 +40,19 @@ public class Doctor {
             strategy = GenerationType.SEQUENCE,
             generator = "doctor_sequence"
     )
-    private Integer doctorId;
+    private Long id;
 
-    private Integer empId;
+    private int employeeId;
+
     private String firstName;
+
     private String lastName;
-    private long phone;
+
+    private String phoneNumber;
 
     @OneToMany
     private List<Patient> patients = new ArrayList<>();
 
     @OneToMany
     private List<Appointment> appointments = new ArrayList<>();
-
-    /*
-    Constructors
-     */
-
-    public Doctor(final Integer empId, final String firstName, final String lastName) {
-        this.empId = empId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Doctor(final Integer empId, final String firstName, final String lastName, final long phone) {
-        this.empId = empId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-    }
 }

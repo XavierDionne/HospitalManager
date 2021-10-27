@@ -1,21 +1,36 @@
+/*
+    Copyright 2021, Xavier Dionne, All rights reserved.
+ */
 package com.wolfd.HospitalManager.Appointments;
 
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.wolfd.HospitalManager.Doctors.Doctor;
 import com.wolfd.HospitalManager.Patients.Patient;
 
-import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Entity
 @Table
-public class Appointment {
-
-    /*
-    Attributes
-     */
-
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class Appointment
+{
     @Id
     @SequenceGenerator(
             name = "appointment_sequence",
@@ -26,53 +41,16 @@ public class Appointment {
             strategy = GenerationType.SEQUENCE,
             generator = "appointment_sequence"
     )
-    private Integer appId;
+    private Long id;
+
+    @Column(nullable = false)
+    private Date date;
+
+    private String room;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Patient patient;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Doctor doctor;
-
-    @Column(nullable = false)
-    private Date date;
-
-    private int room;
-
-    private static final SimpleDateFormat FORMATTER
-            = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-
-    /*
-    Constructors
-     */
-
-    public Appointment(){}
-
-    public Appointment(Patient patient, Doctor doctor, Date date, int room){
-        this.patient = patient;
-        this.doctor = doctor;
-        this.date = date;
-        this.room = room;
-    }
-
-    /*
-    Methods
-     */
-
-    public Integer getAppId() {
-        return appId;
-    }
-
-    public int getRoom() {
-        return room;
-    }
-
-    public void setRoom(int room) {
-        this.room = room;
-    }
-
-    @Override
-    public String toString() {
-        return "Appointment "+"appId:"+appId+", ["+patient+"], ["+doctor+"], date: "+date+", room:"+room;
-    }
 }
