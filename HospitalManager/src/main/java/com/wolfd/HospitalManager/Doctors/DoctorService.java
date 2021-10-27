@@ -26,41 +26,50 @@ public class DoctorService {
         return doctorRepository.findAll();
     }
 
-    public void addNewDoctor(Doctor doctor) {
+    public void addNewDoctor(final Doctor doctor)
+    {
         Optional<Doctor> doctorOptional = doctorRepository.
-                findDoctorByLastName(doctor.getLastName());
+                findByLastName(doctor.getLastName());
+
         if (doctorOptional.isPresent()){
             throw  new IllegalStateException("last name taken");
         }
-        doctorRepository.save(doctor);
 
+        doctorRepository.save(doctor);
     }
 
-    public void deleteDoctor(Integer doctorId) {
-        boolean exists = doctorRepository.existsById(doctorId);
-        if (!exists){
+    public void deleteDoctor(final long id)
+    {
+        final boolean exists = doctorRepository.existsById(id);
+
+        if (!exists)
+        {
             throw new IllegalStateException(
-                    "student with id " + doctorId + " does not exists");
+                    "student with id " + id + " does not exists");
         }
-        doctorRepository.deleteById(doctorId);
+
+        doctorRepository.deleteById(id);
     }
 
     @Transactional
-    public void updateDoctor(Integer doctorId,
-                             String firstName,
-                             String lastName) {
-        Doctor doctor = doctorRepository.findById(doctorId)
-                .orElseThrow(() -> new IllegalStateException(
-                        "patient with id " + doctorId + "does not exist"));
+    public void updateDoctor(
+        final long id,
+        final String firstName,
+        final String lastName)
+    {
+        final Doctor doctor = doctorRepository.findById(id)
+            .orElseThrow(() -> new IllegalStateException(
+                "patient with id " + id + "does not exist"));
 
         if (firstName != null && firstName.length() > 0 &&
-                !Objects.equals(doctor.getFirstName(), firstName)) {
+                !Objects.equals(doctor.getFirstName(), firstName))
+        {
             doctor.setFirstName(firstName);
         }
 
         if (lastName != null && lastName.length() > 0 &&
                 !Objects.equals(doctor.getLastName(), lastName)) {
-            Optional<Doctor> doctorOptional = doctorRepository.findDoctorByLastName(lastName);
+            Optional<Doctor> doctorOptional = doctorRepository.findByLastName(lastName);
             if (doctorOptional.isPresent()){
                 throw new IllegalStateException("lastName taken");
             }

@@ -11,8 +11,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DoctorRepository extends JpaRepository<Doctor,Integer> {
-
+public interface DoctorRepository extends JpaRepository<Doctor, Long>
+{
     @Query("SELECT s FROM Doctor s WHERE s.lastName = ?1")
-    Optional<Doctor> findDoctorByLastName(String lastName);
+    Optional<Doctor> findByLastName(final String lastName);
 }

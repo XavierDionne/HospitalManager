@@ -5,9 +5,7 @@ package com.wolfd.HospitalManager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
@@ -16,10 +14,10 @@ import lombok.NoArgsConstructor;
  * to launch this hospital manager spring boot application.
  * </p>
  */
+@NoArgsConstructor
 @SpringBootApplication
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class HospitalManagerApplication {
-
+public class HospitalManagerApplication
+{
     /**
      * The entry point method to launch this application.
      *
@@ -27,7 +25,8 @@ public class HospitalManagerApplication {
      *        The array of command line arguments to use when launching
      *        this application. This cannot be null, but it could be empty.
      */
-    public static void main(final String[] arguments) {
+    public static void main(final String[] arguments)
+    {
         SpringApplication.run(HospitalManagerApplication.class, arguments);
     }
 }

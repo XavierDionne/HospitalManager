@@ -142,17 +142,17 @@ public final class DoctorController {
          */
         private DoctorResponse(final Doctor doctor)
         {
-            id = doctor.getDoctorId();
-            empId = doctor.getEmpId();
+            id = doctor.getId();
+            employeeId = doctor.getEmployeeId();
             lastName = doctor.getLastName();
         }
 
         // The unique database identifier for this doctor. This cannot be null
         // nor less than or equal to zero.
-        private final int id;
+        private final long id;
 
-        // ???
-        private final Integer empId;
+        // The employee identifier for this doctor.
+        private final int employeeId;
 
         // The last name for this doctor. This cannot be null.
         private final String lastName;

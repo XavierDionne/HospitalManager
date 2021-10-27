@@ -1,3 +1,6 @@
+/*
+    Copyright 2021, Xavier Dionne, All rights reserved.
+ */
 package com.wolfd.HospitalManager.Appointments;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "api/v1/appointment")
-public class AppointmentController {
-
-    private final AppointmentService appointmentService;
-
+public class AppointmentController
+{
     @Autowired
-    public AppointmentController(AppointmentService appointmentService) {
-        this.appointmentService = appointmentService;
-    }
+    private final AppointmentService appointmentService;
 
     @GetMapping
     public String getAppointments(){
