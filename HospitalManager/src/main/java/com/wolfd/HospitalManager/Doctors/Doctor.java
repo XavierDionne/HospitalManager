@@ -10,8 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-@Entity
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Table
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Doctor {
 
     //Attributes
@@ -32,70 +41,20 @@ public class Doctor {
     private String lastName;
     private long phone;
 
-
     /*
     Constructors
      */
 
-    public Doctor(){}
-
-    public Doctor(Integer empId, String firstName, String lastName){
+    public Doctor(final Integer empId, final String firstName, final String lastName) {
         this.empId = empId;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Doctor(Integer empId, String firstName, String lastName, long phone){
+    public Doctor(final Integer empId, final String firstName, final String lastName, final long phone) {
         this.empId = empId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-    }
-
-    /*
-    Setters and getters
-     */
-
-    public Integer getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(Integer doctorId) {
-        this.doctorId = doctorId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public long getPhone() {
-        return phone;
-    }
-
-    public void setPhone(long phone) {
-        this.phone = phone;
-    }
-
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "doctorId=" + doctorId +
-                ", employee Id='"+ empId + '\''+
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone=" + phone +
-                '}';
     }
 }
