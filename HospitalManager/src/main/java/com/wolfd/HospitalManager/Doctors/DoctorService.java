@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DoctorService {
-
+public class DoctorService
+{
     private final DoctorRepository doctorRepository;
 
     @Autowired
@@ -24,6 +24,7 @@ public class DoctorService {
         return doctorRepository.findAll();
     }
 
+    @Transactional
     public long create(
         final String firstname,
         final String lastname,
@@ -49,6 +50,7 @@ public class DoctorService {
         return persistedDoctor.getId(); 
     }
 
+    @Transactional
     public void deleteDoctor(final long id)
     {
         final boolean exists = doctorRepository.existsById(id);
