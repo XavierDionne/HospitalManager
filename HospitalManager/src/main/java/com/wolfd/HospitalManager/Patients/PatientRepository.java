@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PatientRepository extends JpaRepository<Patient,Integer> {
+public interface PatientRepository extends JpaRepository<Patient,Long> {
 
     @Query("SELECT s FROM Patient s WHERE s.lastName = ?1")
-    Optional<Patient> findPatientByLastName(String lastName);
+    Optional<Patient> findByLastName(String lastName);
 }

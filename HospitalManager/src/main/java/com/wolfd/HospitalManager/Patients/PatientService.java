@@ -28,7 +28,7 @@ public class PatientService {
 
     public void addNewPatient(Patient patient) {
         Optional<Patient> patientOptional = patientRepository.
-                findPatientByLastName(patient.getLastName());
+                findByLastName(patient.getLastName());
         if (patientOptional.isPresent()){
             throw  new IllegalStateException("last name taken");
         }
@@ -36,7 +36,7 @@ public class PatientService {
 
     }
 
-    public void deletePatient(Integer patientId) {
+    public void deletePatient(Long patientId) {
         boolean exists = patientRepository.existsById(patientId);
         if (!exists){
             throw new IllegalStateException(
@@ -46,7 +46,7 @@ public class PatientService {
     }
 
     @Transactional
-    public void updatePatient(Integer patientId,
+    public void updatePatient(Long patientId,
                               String firstName,
                               String lastName) {
         Patient patient = patientRepository.findById(patientId)
@@ -60,7 +60,7 @@ public class PatientService {
 
         if (lastName != null && lastName.length() > 0 &&
                 !Objects.equals(patient.getLastName(), lastName)) {
-            Optional<Patient> patientOptional = patientRepository.findPatientByLastName(lastName);
+            Optional<Patient> patientOptional = patientRepository.findByLastName(lastName);
             if (patientOptional.isPresent()){
                 throw new IllegalStateException("lastName taken");
             }
