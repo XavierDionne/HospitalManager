@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class Patient {
+public class Patient
+{
 
     //Attributes
     @Id
@@ -36,50 +36,18 @@ public class Patient {
     private Long Id;
 
     private Integer healthCard;
+
     private String firstName;
+
     private String lastName;
-    private Long phone;
+
+    private String phone;
+
     private String address;
 
-//    @ManyToOne
-//    private Doctor familyDoctor;
-//
-//    @OneToMany
-//    private List<Appointment> appointments = new ArrayList<>();
+    @ManyToOne
+    private Doctor familyDoctor;
 
-    /*
-    Constructors
-     */
-
-    public Patient(Integer healthCard, String firstName, String lastName){
-        this(healthCard,
-                firstName,
-                lastName,
-                0L,
-                null);
-    }
-
-    public Patient(final Integer healthCard, final String firstName, final String lastName, final long phone){
-        this(healthCard,
-                firstName,
-                lastName,
-                phone,
-                null);
-    }
-
-    public Patient(final Integer healthCard, final String firstName, final String lastName, final String address){
-        this(healthCard,
-                firstName,
-                lastName,
-                0L,
-                address);
-    }
-
-    public Patient(final Integer healthCard, final String firstName, final String lastName, final long phone, final String address){
-        this.healthCard = healthCard;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.address = address;
-    }
+    @OneToMany
+    private List<Appointment> appointments = new ArrayList<>();
 }
