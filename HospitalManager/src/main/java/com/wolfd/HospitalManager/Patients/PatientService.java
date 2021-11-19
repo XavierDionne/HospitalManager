@@ -4,24 +4,32 @@
 package com.wolfd.HospitalManager.Patients;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wolfd.HospitalManager.Doctors.Doctor;
+import com.wolfd.HospitalManager.Doctors.DoctorService;
+
 @Service
 public class PatientService {
 
-    private final PatientRepository patientRepository;
+    @Autowired
+    private final DoctorService doctorService;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
+    private final PatientRepository patientRepository;
+
+    public PatientService(
+        final PatientRepository patientRepository,
+        final DoctorService doctorService) {
+           this.patientRepository = patientRepository;
+           this.doctorService = doctorService;
     }
 
+    @Transactional
     public List<Patient> getPatients(){
         return patientRepository.findAll();
     }
@@ -32,8 +40,11 @@ public class PatientService {
             final String lastname,
             final int healthcard,
             final String phonenumber,
-            final String address)
+            final String address,
+            final long doctorId)
     {
+        final Doctor doctor = doctorService.get(doctorId);
+
         final Patient existingPatient = patientRepository
                 .findByLastName(lastname);
 
@@ -48,6 +59,9 @@ public class PatientService {
         patient.setHealthCard(healthcard);
         patient.setPhone(phonenumber);
         patient.setAddress(address);
+        patient.setFamilyDoctor(doctor);
+
+        doctor.add(patient);
 
         final Patient persistedPatient = patientRepository.save(patient);
 

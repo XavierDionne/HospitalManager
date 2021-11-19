@@ -20,17 +20,30 @@ import com.wolfd.HospitalManager.Patients.Patient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Table
 @Entity
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor
 public class Doctor
 {
+    public void add(final Patient patient)
+    {
+        patients.add(patient);
+    }
+
+    @Override
+    public String toString()
+    {
+        return getClass().getName()
+            + "["
+            + "id: " + id
+            + " lastName: " + lastName
+            + "]";
+    }
+
     @Id
+    @Getter
+    @Setter
     @SequenceGenerator(
             name = "doctor_sequence",
             sequenceName = "doctor_sequence",
@@ -42,17 +55,27 @@ public class Doctor
     )
     private Long id;
 
+    @Getter
+    @Setter
     private int employeeId;
 
+    @Getter
+    @Setter
     private String firstName;
 
+    @Getter
+    @Setter
     private String lastName;
 
+    @Getter
+    @Setter
     private String phoneNumber;
 
+    @Getter
     @OneToMany
     private List<Patient> patients = new ArrayList<>();
 
+    @Getter
     @OneToMany
     private List<Appointment> appointments = new ArrayList<>();
 }

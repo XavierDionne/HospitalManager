@@ -6,7 +6,6 @@ package com.wolfd.HospitalManager.Patients;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +32,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -76,6 +76,11 @@ public class PatientController
         // The model component in the MVC pattern. a.k.a our domain objects).
         final List<Patient> patients = patientService.getPatients();
 
+        for(final Patient current : patients)
+        {
+            log.info("Found: " + current);
+        }
+
         // Populate our response object with all the doctors retrieved from the
         // database.
         for(final Patient currentPatient : patients)
@@ -110,7 +115,7 @@ public class PatientController
     public ResponseEntity<PatientController.CreatePatientResponsePayload> create(
             final @RequestBody PatientController.CreatePatientRequestPayload requestPayload)
     {
-        log.info("Processing the incoming create doctor http request containing "
+        log.info("Processing the incoming create patient http request containing "
                 + "payload=[{}]", requestPayload);
 
         try
@@ -123,7 +128,8 @@ public class PatientController
                     requestPayload.getLastname(),
                     requestPayload.getHealthCard(),
                     requestPayload.getPhoneNumber(),
-                    requestPayload.getAddress());
+                    requestPayload.getAddress(),
+                    requestPayload.getDoctorId());
 
             // If above succeeds (i.e. does not throw), then the doctor was created
             // in the database and its database identifier was returned. Communicate
@@ -142,6 +148,12 @@ public class PatientController
             // client.
             log.error("The patient already exists. Returning bad request to client.",
                     paee);
+
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        catch(final Exception e)
+        {
+            log.error("There was an error creating the patient.", e);
 
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -248,6 +260,13 @@ public class PatientController
                 example = EXAMPLE_ADDRESS,
                 position = 4)
         private String address;
+
+        @ApiModelProperty(
+                value = "The database identifier of the doctor to associate this patient with.",
+                required = true,
+                example = EXAMPLE_ID,
+                position = 4)
+        private long doctorId;
     }
 
     /**

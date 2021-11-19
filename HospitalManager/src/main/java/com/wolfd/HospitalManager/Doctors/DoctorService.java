@@ -90,6 +90,11 @@ public class DoctorService
 //        }
     }
 
+    public Doctor get(final long id)
+    {
+        return doctorRepository.findById(id).get();
+    }
+
     static final class DoctorAlreadyExistsException extends RuntimeException
     {
         private DoctorAlreadyExistsException(final String lastname)
