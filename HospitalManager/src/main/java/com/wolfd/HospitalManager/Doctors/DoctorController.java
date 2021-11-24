@@ -305,7 +305,7 @@ public final class DoctorController
             position = 0)
         private final long id;
 
-        // The employee identifier for this doctor.
+        // The employee identifier for this doctor. This cannot be null
         @ApiModelProperty(
             value = "The employee identifier of the doctor.",
             required = true,

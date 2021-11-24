@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.wolfd.HospitalManager.Patients.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,7 @@ public class DoctorService
         if (!exists)
         {
             throw new IllegalStateException(
-                    "student with id " + id + " does not exists");
+                    "patient with id " + id + " does not exist");
         }
 
         doctorRepository.deleteById(id);
@@ -72,7 +73,7 @@ public class DoctorService
     {
 //        final Doctor doctor = doctorRepository.findById(id)
 //            .orElseThrow(() -> new IllegalStateException(
-//                "patient with id " + id + "does not exist"));
+//                "doctor with id " + id + "does not exist"));
 //
 //        if (firstName != null && firstName.length() > 0 &&
 //                !Objects.equals(doctor.getFirstName(), firstName))

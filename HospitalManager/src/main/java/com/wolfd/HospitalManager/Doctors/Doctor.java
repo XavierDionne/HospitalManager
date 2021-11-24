@@ -31,6 +31,16 @@ public class Doctor
         patients.add(patient);
     }
 
+    public void addApp(final Appointment appointment)
+    {
+        appointments.add(appointment);
+    }
+
+    public void deleteApp(final Appointment appointment)
+    {
+        appointments.remove(appointment);
+    }
+
     @Override
     public String toString()
     {

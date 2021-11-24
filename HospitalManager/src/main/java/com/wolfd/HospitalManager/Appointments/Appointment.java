@@ -3,17 +3,13 @@
  */
 package com.wolfd.HospitalManager.Appointments;
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import javax.persistence.Table;
 import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 import com.wolfd.HospitalManager.Doctors.Doctor;
 import com.wolfd.HospitalManager.Patients.Patient;
@@ -21,16 +17,25 @@ import com.wolfd.HospitalManager.Patients.Patient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Table
 @Entity
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor
 public class Appointment
 {
+    @Override
+    public String toString()
+    {
+        return getClass().getName()
+                + "["
+                + "id: " + id
+                + " date: " + date
+                + " room: " + room
+                + "]";
+    }
+
+    @Getter
+    @Setter
     @Id
     @SequenceGenerator(
             name = "appointment_sequence",
@@ -43,14 +48,25 @@ public class Appointment
     )
     private Long id;
 
-    @Column(nullable = false)
-    private Date date;
+    @Getter
+    @Setter
+    private long appId;
 
+    @Getter
+    @Setter
+    private String date;
+
+    @Getter
+    @Setter
     private String room;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Getter
+    @Setter
+    @ManyToOne
     private Patient patient;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Getter
+    @Setter
+    @ManyToOne
     private Doctor doctor;
 }

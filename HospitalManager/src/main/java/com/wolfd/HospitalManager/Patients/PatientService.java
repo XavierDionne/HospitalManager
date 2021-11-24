@@ -105,6 +105,11 @@ public class PatientService {
 //        }
     }
 
+    public Patient get(final long id)
+    {
+        return patientRepository.findById(id).get();
+    }
+
     static final class PatientAlreadyExistsException extends RuntimeException
     {
         private PatientAlreadyExistsException(final int healthcard)

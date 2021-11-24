@@ -51,7 +51,7 @@ public class PatientController
      *
      * @return The complete list of patients maintained by this service. The list
      *         is returned as a JSON response body represented by the
-     *         {@link PatientController.GetPatientsResponsePayload} object. This cannot be null, but it
+     *         {@link GetPatientsResponsePayload} object. This cannot be null, but it
      *         could be empty. Both the response payload and http status are wrapped
      *         within the {@link ResponseEntity} object returned.
      */
@@ -62,7 +62,7 @@ public class PatientController
                     code = 200,
                     message = "If the list of patients was successfully retrieved.")
     })
-    public ResponseEntity<PatientController.GetPatientsResponsePayload> getAll()
+    public ResponseEntity<GetPatientsResponsePayload> getAll()
     {
         log.info("Processing the incoming get all patients http request.");
 
@@ -70,7 +70,7 @@ public class PatientController
         // converted from a POJO (plain old java object) into a JSON string. This
         // object represents the view in our MVC pattern. We never return the domain
         // object directly to the client.
-        final PatientController.GetPatientsResponsePayload payload = new PatientController.GetPatientsResponsePayload();
+        final GetPatientsResponsePayload payload = new GetPatientsResponsePayload();
 
         // Retrieve the complete list of patients from the database (i.e.
         // The model component in the MVC pattern. a.k.a our domain objects).
@@ -81,11 +81,11 @@ public class PatientController
             log.info("Found: " + current);
         }
 
-        // Populate our response object with all the doctors retrieved from the
+        // Populate our response object with all the patients retrieved from the
         // database.
         for(final Patient currentPatient : patients)
         {
-            payload.add(new PatientController.PatientPayload(currentPatient));
+            payload.add(new PatientPayload(currentPatient));
         }
 
         log.info("Successfully processed. Responding with payload=[{}].", payload);
@@ -112,16 +112,16 @@ public class PatientController
                     code = 400,
                     message = "If the patient is already managed by this service."),
     })
-    public ResponseEntity<PatientController.CreatePatientResponsePayload> create(
-            final @RequestBody PatientController.CreatePatientRequestPayload requestPayload)
+    public ResponseEntity<CreatePatientResponsePayload> create(
+            final @RequestBody CreatePatientRequestPayload requestPayload)
     {
         log.info("Processing the incoming create patient http request containing "
                 + "payload=[{}]", requestPayload);
 
         try
         {
-            // Delegate the creation of a new doctor to the service. Give it the
-            // enumerated attributes it requires to create a new doctor. If a doctor
+            // Delegate the creation of a new patient to the service. Give it the
+            // enumerated attributes it requires to create a new patient. If a patient
             // with the same lastname already exists, then this operation will throw.
             final long id = patientService.create(
                     requestPayload.getFirstname(),
@@ -131,11 +131,11 @@ public class PatientController
                     requestPayload.getAddress(),
                     requestPayload.getDoctorId());
 
-            // If above succeeds (i.e. does not throw), then the doctor was created
+            // If above succeeds (i.e. does not throw), then the patient was created
             // in the database and its database identifier was returned. Communicate
             // this back to the client.
-            final PatientController.CreatePatientResponsePayload responsePayload
-                    = new PatientController.CreatePatientResponsePayload(id);
+            final CreatePatientResponsePayload responsePayload
+                    = new CreatePatientResponsePayload(id);
 
             log.info("Successfully processed. Responding with payload=[{}].",
                     responsePayload);
@@ -212,18 +212,18 @@ public class PatientController
 
         // The list of doctors to return as part of the response. This will
         // get marshalled into a JSON array. This cannot be null.
-        private final List<PatientController.PatientPayload> patients = new ArrayList<>();
+        private final List<PatientPayload> patients = new ArrayList<>();
     }
 
     /**
-     * This class represents the JSON we receive when a create doctor request
+     * This class represents the JSON we receive when a create patient request
      * arrives at this controller.
      */
     @Getter
     @ToString
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @ApiModel(description = "The POST request payload containing the details of a "
-            +"new doctor to create at this service.")
+            +"new patient to create at this service.")
     private static final class CreatePatientRequestPayload
     {
         @ApiModelProperty(
@@ -333,7 +333,7 @@ public class PatientController
                 position = 0)
         private final long id;
 
-        // The health card identifier for this patient.
+        // The health card identifier for this patient. This cannot be null
         @ApiModelProperty(
                 value = "The health card identifier of the patient.",
                 required = true,
