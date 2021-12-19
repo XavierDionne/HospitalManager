@@ -25,12 +25,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Patient
 {
-    public void add(Appointment appointment)
+    public void add(final Appointment appointment)
     {
         appointments.add(appointment);
     }
 
-    public void deleteApp(Appointment appointment)
+    public void deleteApp(final Appointment appointment)
     {
         appointments.remove(appointment);
     }

@@ -41,6 +41,11 @@ public class Doctor
         appointments.remove(appointment);
     }
 
+    public void deletePatient(final Patient patient)
+    {
+        patients.remove(patient);
+    }
+
     @Override
     public String toString()
     {

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient,Long> {
 
-    @Query("SELECT s FROM Patient s WHERE s.lastName = ?1")
-    Patient findByLastName(String lastName);
+    @Query("SELECT s FROM Patient s WHERE s.healthCard = ?1")
+    Patient findByHealthCard(int healthCard);
 }

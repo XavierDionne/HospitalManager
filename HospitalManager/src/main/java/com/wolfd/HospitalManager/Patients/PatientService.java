@@ -46,7 +46,7 @@ public class PatientService {
         final Doctor doctor = doctorService.get(doctorId);
 
         final Patient existingPatient = patientRepository
-                .findByLastName(lastname);
+                .findByHealthCard(healthcard);
 
         if (existingPatient != null)
         {
@@ -75,9 +75,12 @@ public class PatientService {
 
         if (!exists)
         {
-            throw new IllegalStateException(
-                    "patient with id " + patientId + " does not exists");
+            throw new PatientDoesNotExistsException(patientId);
         }
+
+        final Patient patient = patientRepository.getById(patientId);
+
+        patient.getFamilyDoctor().deletePatient(patient);
 
         patientRepository.deleteById(patientId);
     }
@@ -86,9 +89,14 @@ public class PatientService {
     public void updatePatient(Long patientId,
                               String firstName,
                               String lastName) {
-//        Patient patient = patientRepository.findById(patientId)
-//                .orElseThrow(() -> new IllegalStateException(
-//                        "patient with id " + patientId + " does not exist"));
+//        try
+//        {
+//            Patient patient = patientRepository.findById(patientId)
+//        }
+//        catch()
+//        {
+//
+//        }
 //
 //        if (firstName != null && firstName.length() > 0 &&
 //                !Objects.equals(patient.getFirstName(), firstName)) {
@@ -120,5 +128,15 @@ public class PatientService {
         }
 
         private static final long serialVersionUID = 1L;
+    }
+
+    static final class PatientDoesNotExistsException extends RuntimeException
+    {
+        private PatientDoesNotExistsException(final long id)
+        {
+            super("A patient with id=\""
+                    + id
+                    + "\" does not exists.");
+        }
     }
 }
